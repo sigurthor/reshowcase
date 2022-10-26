@@ -3,7 +3,7 @@ open Belt
 module URLSearchParams = ReshowcaseUi__Bindings.URLSearchParams
 module HighlightTerms = ReshowcaseUi__HighlightTerms
 
-type t = Js.Dict.t<Entity.t<string>>
+type t = Js.Dict.t<Entity.t>
 
 let rec dig = (demos: t, categories: list<string>, demoName: string) => {
   switch categories {

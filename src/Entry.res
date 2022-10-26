@@ -1,25 +1,25 @@
-type rec addFunctions<'a> = {
-  addDemo:  (string, Configs.demoUnitProps<'a> => React.element) => unit,
-  addCategory: (string, addFunctions<string>=> unit) => unit,
+type rec addFunctions = {
+  addDemo: 'a. (string, Configs.demoUnitProps=> React.element) => unit,
+  addCategory: (string, addFunctions => unit) => unit,
 }
 
 let rootMap: Demos.t = Js.Dict.empty()
 
 let demo = (f): unit => {
-  let internalAddDemo = (demoName: string, demoUnit: Configs.demoUnitProps<'a> => React.element) => {
+  let internalAddDemo = (demoName: string, demoUnit: Configs.demoUnitProps => React.element) => {
     rootMap->Js.Dict.set(demoName, Demo(demoUnit))
   }
 
   let rec internalAddCategory = (
     categoryName: string,
-    func: addFunctions<string> => unit,
+    func: addFunctions => unit,
     ~prevMap: Demos.t,
   ) => {
     let newCategory = Js.Dict.empty()
 
     prevMap->Js.Dict.set(categoryName, Category(newCategory))
 
-    let newAddDemo = (demoName: string, demoUnit: Configs.demoUnitProps<'a> => React.element) => {
+    let newAddDemo = (demoName: string, demoUnit: Configs.demoUnitProps => React.element) => {
       newCategory->Js.Dict.set(demoName, Demo(demoUnit))
     }
 
