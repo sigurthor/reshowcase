@@ -630,11 +630,15 @@ module DemoUnit = {
         let floats = ref(Map.String.empty)
         let bools = ref(Map.String.empty)
         let props: Configs.demoUnitProps = {
+          obj: ((name, ~options=?, config) => {
+            strings := strings.contents->Map.String.set(name, (config, config, options))
+            config
+          })->Obj.magic,
           
           string: ((name, ~options=?, config) => {
             strings := strings.contents->Map.String.set(name, (config, config, options))
             config
-          })->Obj.magic,
+          }),
           int: (name, config) => {
             ints := ints.contents->Map.String.set(name, (config, config.initial))
             config.initial
@@ -658,11 +662,15 @@ module DemoUnit = {
       },
     )
     let props: Configs.demoUnitProps = {
-     
-      string: ((name, ~options as _=?, _config) => {
+      obj: ((name, ~options as _=?, _config) => {
         let (_, value, _) = state.strings->Map.String.getExn(name)
         value
       })->Obj.magic,
+     
+      string: (name, ~options as _=?, _config) => {
+        let (_, value, _) = state.strings->Map.String.getExn(name)
+        value
+      },
       int: (name, _config) => {
         let (_, value) = state.ints->Map.String.getExn(name)
         value

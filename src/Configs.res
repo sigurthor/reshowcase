@@ -10,7 +10,8 @@ type stringConfig = string
 type boolConfig = bool
 
 type demoUnitProps = {
-  string: 'a. (Belt.Map.String.key, ~options: array<(string, 'a)>=?, 'a) => 'a,
+  obj: 'a. (Belt.Map.String.key, ~options: array<(string, 'a)>=?, 'a) => 'a,
+  string:  (Belt.Map.String.key, ~options: array<(string, string)>=?, string) => string,
   int: (string, numberConfig<int>) => int,
   float: (string, numberConfig<float>) => float,
   bool: (string, boolConfig) => bool,
