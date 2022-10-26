@@ -1,8 +1,8 @@
-type rec addFunctions = {
-  addDemo:  (string, Configs.demoUnitProps => React.element) => unit,
-  addCategory: (string, addFunctions => unit) => unit,
+type rec addFunctions<'a> = {
+  addDemo:  (string, Configs.demoUnitProps<'a> => React.element) => unit,
+  addCategory: (string, addFunctions<string> => unit) => unit,
 }
 
-let demo: (addFunctions => unit) => unit
+let demo: (addFunctions<string> => unit) => unit
 
 let start: unit => unit
