@@ -6,3 +6,5 @@ type rec addFunctions = {
 let demo: (addFunctions => unit) => unit
 
 let start: unit => unit
+
+let rootMap: Demos.t
