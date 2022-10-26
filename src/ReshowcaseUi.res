@@ -438,7 +438,7 @@ module DemoUnitSidebar = {
 
   @react.component
   let make = (
-    ~strings: Map.String.t<(Configs.stringConfig, string, option<array<(string, string)>>)>,
+    ~strings:  Map.String.t<(Configs.stringConfig, 'a, option<array<(string, 'a)>>)>,
     ~ints: Map.String.t<(Configs.numberConfig<int>, int)>,
     ~floats: Map.String.t<(Configs.numberConfig<float>, float)>,
     ~bools: Map.String.t<(Configs.boolConfig, bool)>,
@@ -568,7 +568,7 @@ module DemoUnit = {
     Window.window["parent"]["document"]["getElementById"](. rightSidebarId)->Js.Nullable.toOption
 
   @react.component
-  let make = (~demoUnit: Configs.demoUnitProps => React.element) => {
+  let make = (~demoUnit: Configs.demoUnitProps<'a> => React.element) => {
     let (parentWindowRightSidebarElem, setParentWindowRightSidebarElem) = React.useState(() => None)
 
     React.useEffect0(() => {
@@ -629,7 +629,7 @@ module DemoUnit = {
         let ints = ref(Map.String.empty)
         let floats = ref(Map.String.empty)
         let bools = ref(Map.String.empty)
-        let props: Configs.demoUnitProps = {
+        let props: Configs.demoUnitProps<'a> = {
           string: (name, ~options=?, config) => {
             strings := strings.contents->Map.String.set(name, (config, config, options))
             config
@@ -656,7 +656,7 @@ module DemoUnit = {
         }
       },
     )
-    let props: Configs.demoUnitProps = {
+    let props: Configs.demoUnitProps<'a> = {
       string: (name, ~options as _=?, _config) => {
         let (_, value, _) = state.strings->Map.String.getExn(name)
         value
